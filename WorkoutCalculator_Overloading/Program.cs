@@ -1,32 +1,28 @@
 ﻿class WorkoutCalculator
 {
-    public const string programName = "WorkoutCalculator";   
-    private static DateTime startTime = DateTime.Now;
-    public static DateTime StartTime => startTime;
-    private static double _version = 1.0;
-    public static double Version
-    {
-        get { return _version; }
-    }
+    const int coefficient1 = 65;
+    const double coefficient2 = 1.0;
+    const double coefficient3 = 9.8;
+    const int coefficient4 = 10;
     public double CalculateCalories(double kilometers)
     {
         calculationCounter++;
-        return kilometers * 65;
+        return kilometers * coefficient1;
     }
     public double CalculateCalories(double kilometers, double weight)
     {
         calculationCounter++;
-        return weight * kilometers * 1.0;
+        return weight * kilometers * coefficient2;
     }
     public double CalculateCalories(double kilometers, double weight, int hours)
     {
         calculationCounter++;
-        return 9.8 * weight * hours;
+        return coefficient3 * weight * hours;
     }
     public double CalculateCalories(int hours, int minutes)
     {
         calculationCounter++;
-        return ((hours * 60) + minutes) * 10;
+        return ((hours * 60) + minutes) * coefficient4;
     }
     static int calculationCounter = 0;
     public static int Counter => calculationCounter;
@@ -36,9 +32,13 @@ class Program
     static void Main()
     {
         WorkoutCalculator calculator = new WorkoutCalculator();
+        const string programName = "WorkoutCalculator";
+        DateTime startTime = DateTime.Now;
+        const double Version = 2.0;
         bool run = true;
         while (run)
         {
+            Console.WriteLine(programName);
             ShowMenu();
             Console.WriteLine("Please choose what do you want to calculate:");
             int menuChoise = Convert.ToInt32(Console.ReadLine());
@@ -81,7 +81,14 @@ class Program
                     Console.WriteLine($"You burned {calories4} calories");
                     break;
                 case 5:
-                    ShowDetailsOfTheProgram();
+                    ShowCalculationCounts();
+                    break;
+                case 6:
+                    TimeSpan runtime = DateTime.Now - startTime;
+                    Console.WriteLine($"Your run time is: {runtime}");
+                    break;
+                case 7:
+                    Console.WriteLine($"The version of the program is: {Version}");
                     break;
                 case 0:
                     Console.WriteLine("Exit...");
@@ -96,22 +103,18 @@ class Program
     }
     static void ShowMenu()
     {
-        Console.WriteLine();
-        Console.WriteLine(WorkoutCalculator.programName);
         Console.WriteLine("1 – Simple calculation");
         Console.WriteLine("2 – Calculation with weight");
         Console.WriteLine("3 – Calculation with weight and time");
         Console.WriteLine("4 – Calculation by time");
-        Console.WriteLine("5 - Number of calculator calls and run time");
+        Console.WriteLine("5 - Number of calculator calls");
+        Console.WriteLine("6 - My runtime");
+        Console.WriteLine("7 - Version of the Calculator");
         Console.WriteLine("0 - Exit");
         Console.WriteLine();
     }
-    static void ShowDetailsOfTheProgram()
-    {
-        DateTime now = DateTime.Now;
-        TimeSpan runtime = now - WorkoutCalculator.StartTime;
-        Console.WriteLine($"The version of the program is: {WorkoutCalculator.Version}");
+    static void ShowCalculationCounts()
+    {        
         Console.WriteLine($"Your count of calculations: {WorkoutCalculator.Counter}");
-        Console.WriteLine($"Your run time is: {runtime}");
     }
 }
