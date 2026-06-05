@@ -2,20 +2,26 @@
 {
     public double CalculateCalories(double kilometers)
     {
+        calculationCounter++;
         return kilometers * 65;
     }
     public double CalculateCalories(double kilometers, double weight)
     {
+        calculationCounter++;
         return weight * kilometers * 1.0;
     }
     public double CalculateCalories(double kilometers, double weight, int hours)
     {
+        calculationCounter++;
         return 9.8 * weight * hours;
     }
     public double CalculateCalories(int hours, int minutes)
     {
+        calculationCounter++;
         return ((hours * 60) + minutes) * 10;
     }
+    static int calculationCounter = 0;
+    public static int Counter => calculationCounter;
 }
 class Program
 {
@@ -66,7 +72,9 @@ class Program
                     double calories4 = calculator.CalculateCalories(hours4, minutes4);
                     Console.WriteLine($"You burned {calories4} calories");
                     break;
-
+                case 5:
+                    Console.WriteLine(WorkoutCalculator.Counter);
+                    break;
                 case 0:
                     Console.WriteLine("Exit...");
                     run = false;
@@ -85,6 +93,7 @@ class Program
         Console.WriteLine("2 – Calculation with weight");
         Console.WriteLine("3 – Calculation with weight and time");
         Console.WriteLine("4 – Calculation by time");
+        Console.WriteLine("5 - Number of calculator calls");
         Console.WriteLine("0 - Exit");
         Console.WriteLine();
     }
