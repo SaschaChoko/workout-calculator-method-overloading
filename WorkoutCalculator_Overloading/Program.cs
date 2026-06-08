@@ -1,4 +1,9 @@
-﻿class WorkoutCalculator
+﻿using static System.Console;
+using static System.Convert;
+using Menu = System.Console;
+using Info = ProgramInfo;
+using Calculator = WorkoutCalculator;
+class WorkoutCalculator
 {
     const int coefficient1 = 65;
     const double coefficient2 = 1.0;
@@ -27,94 +32,97 @@
     static int calculationCounter = 0;
     public static int Counter => calculationCounter;
 }
+class ProgramInfo
+{
+    public const double Version = 2.0;
+}
 class Program
 {
     static void Main()
     {
-        WorkoutCalculator calculator = new WorkoutCalculator();
         const string programName = "WorkoutCalculator";
         DateTime startTime = DateTime.Now;
-        const double Version = 2.0;
+        Calculator calculator = new Calculator();
         bool run = true;
         while (run)
         {
-            Console.WriteLine(programName);
+            WriteLine(programName);
             ShowMenu();
-            Console.WriteLine("Please choose what do you want to calculate:");
-            int menuChoise = Convert.ToInt32(Console.ReadLine());
+            WriteLine("Please choose what do you want to calculate:");
+            int menuChoise = ToInt32(ReadLine());
 
             switch (menuChoise)
             {
                 case 1:
-                    Console.WriteLine("Enter kilometers:");
-                    double kilometers = Convert.ToDouble(Console.ReadLine());
+                    WriteLine("Enter kilometers:");
+                    double kilometers = ToDouble(ReadLine());
                     double calories = calculator.CalculateCalories(kilometers);
-                    Console.WriteLine($"You burned {calories} calories");
+                    WriteLine($"You burned {calories} calories");
                     break;
 
                 case 2:
-                    Console.WriteLine("Enter kilometers:");
-                    double kilometers2 = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Enter weight:");
-                    double weight2 = Convert.ToDouble(Console.ReadLine());
+                    WriteLine("Enter kilometers:");
+                    double kilometers2 = ToDouble(ReadLine());
+                    WriteLine("Enter weight:");
+                    double weight2 = ToDouble(ReadLine());
                     double calories2 = calculator.CalculateCalories(kilometers2, weight2);
-                    Console.WriteLine($"You burned {calories2} calories");
+                    WriteLine($"You burned {calories2} calories");
                     break;
 
                 case 3:
-                    Console.WriteLine("Enter kilometers:");
-                    double kilometers3 = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Enter weight:");
-                    double weight3 = Convert.ToDouble(Console.ReadLine());
-                    Console.WriteLine("Enter hours:");
-                    int hours3 = Convert.ToInt32(Console.ReadLine());
+                    WriteLine("Enter kilometers:");
+                    double kilometers3 = ToDouble(ReadLine());
+                    WriteLine("Enter weight:");
+                    double weight3 = ToDouble(ReadLine());
+                    WriteLine("Enter hours:");
+                    int hours3 = ToInt32(ReadLine());
                     double calories3 = calculator.CalculateCalories(kilometers3, weight3, hours3);
-                    Console.WriteLine($"You burned {calories3} calories");
+                    WriteLine($"You burned {calories3} calories");
                     break;
 
                 case 4:
-                    Console.WriteLine("Enter hours:");
-                    int hours4 = Convert.ToInt32(Console.ReadLine());
-                    Console.WriteLine("Enter minutes:");
-                    int minutes4 = Convert.ToInt32(Console.ReadLine());
+                    WriteLine("Enter hours:");
+                    int hours4 = ToInt32(ReadLine());
+                    WriteLine("Enter minutes:");
+                    int minutes4 = ToInt32(ReadLine());
                     double calories4 = calculator.CalculateCalories(hours4, minutes4);
-                    Console.WriteLine($"You burned {calories4} calories");
+                    WriteLine($"You burned {calories4} calories");
                     break;
                 case 5:
                     ShowCalculationCounts();
                     break;
                 case 6:
                     TimeSpan runtime = DateTime.Now - startTime;
-                    Console.WriteLine($"Your run time is: {runtime}");
+                    WriteLine($"Your run time is: {runtime}");
                     break;
                 case 7:
-                    Console.WriteLine($"The version of the program is: {Version}");
+                    WriteLine($"The version of the program is: {Info.Version}");
                     break;
                 case 0:
-                    Console.WriteLine("Exit...");
+                    WriteLine("Exit...");
                     run = false;
                     break;
 
                 default:
-                    Console.WriteLine("Invalid input");
+                    WriteLine("Invalid input");
                     break;
             }
         }
     }
     static void ShowMenu()
     {
-        Console.WriteLine("1 – Simple calculation");
-        Console.WriteLine("2 – Calculation with weight");
-        Console.WriteLine("3 – Calculation with weight and time");
-        Console.WriteLine("4 – Calculation by time");
-        Console.WriteLine("5 - Number of calculator calls");
-        Console.WriteLine("6 - My runtime");
-        Console.WriteLine("7 - Version of the Calculator");
-        Console.WriteLine("0 - Exit");
-        Console.WriteLine();
+        Menu.WriteLine("1 – Simple calculation");
+        Menu.WriteLine("2 – Calculation with weight");
+        Menu.WriteLine("3 – Calculation with weight and time");
+        Menu.WriteLine("4 – Calculation by time");
+        Menu.WriteLine("5 - Number of calculator calls");
+        Menu.WriteLine("6 - My runtime");
+        Menu.WriteLine("7 - Version of the Calculator");
+        Menu.WriteLine("0 - Exit");
+        Menu.WriteLine();
     }
     static void ShowCalculationCounts()
     {        
-        Console.WriteLine($"Your count of calculations: {WorkoutCalculator.Counter}");
+        WriteLine($"Your count of calculations: {Calculator.Counter}");
     }
 }
