@@ -2,7 +2,99 @@
 using static System.Convert;
 using Menu = System.Console;
 using Info = ProgramInfo;
-using Calculator = WorkoutCalculator;
+using Running = RunningWorkout;
+using Cycling = CyclingWorkout;
+using Swimming = SwimmingWorkout;
+class Workout
+{
+    private string _name;
+    public string Name
+    {
+        get { return _name; }
+        set
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentNullException($"{value} is not valid input");
+            }
+            _name = value.Trim();
+        }
+    }
+    private double _duration;
+    public double Duration
+    {
+        get { return _duration; }
+        set
+        {
+            if (value >= 0)
+            {
+                _duration = value;
+            }
+        }
+    }
+    public Workout(string name, double duration)
+    {
+        Name = name;
+        Duration = duration;
+    }
+}
+class RunningWorkout : Workout
+{
+    public RunningWorkout(string name, double duration, double kilometers) : base(name, duration)
+    {
+        Kilometers = kilometers;
+    }
+    private double _kilometers;
+    public double Kilometers
+    {
+        get { return _kilometers; }
+        set
+        {
+            if (value >= 0)
+            {
+                _kilometers = value;
+            }
+        }
+    }
+}
+class CyclingWorkout : Workout
+{
+    private double _averagespeed;
+    public double Averagespeed
+    {
+        get { return _averagespeed; }
+        set
+        {
+            if (value >= 0)
+            {
+                _averagespeed = value;
+            }
+        }
+    }
+    public CyclingWorkout(string name, double duration, double averagespeed) : base(name, duration)
+    {
+        Averagespeed = averagespeed;
+    }
+}
+class SwimmingWorkout : Workout
+{
+    private double _poollength;
+    public double Poollegth
+    {
+        get { return _poollength; }
+        set
+        {
+            if (value >= 0)
+            {
+                _poollength = value;
+            }
+        }
+    }
+    public SwimmingWorkout(string name, double duration, double poollength) : base(name, duration)
+    {
+        Poollegth = poollength;
+    }
+}
 class WorkoutCalculator
 {
     const int coefficient1 = 65;
@@ -42,7 +134,7 @@ class Program
     {
         const string programName = "WorkoutCalculator";
         DateTime startTime = DateTime.Now;
-        Calculator calculator = new Calculator();
+        WorkoutCalculator calculator = new WorkoutCalculator();
         bool run = true;
         while (run)
         {
@@ -123,6 +215,6 @@ class Program
     }
     static void ShowCalculationCounts()
     {        
-        WriteLine($"Your count of calculations: {Calculator.Counter}");
+        WriteLine($"Your count of calculations: {WorkoutCalculator.Counter}");
     }
 }
